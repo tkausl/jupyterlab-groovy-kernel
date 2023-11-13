@@ -27,8 +27,7 @@ jar {
         exclude "META-INF/*.DSA"
         exclude "META-INF/*.RSA"
         exclude "META-INF/*.LIST"
-        exclude "META-INF/**/*"
-        exclude "module-info.class"
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
     manifest {
         attributes 'Implementation-Title': 'Jupyterlab Groovy Kernel',
