@@ -1,13 +1,27 @@
 package net.tkausl.groovykernel;
 
+import groovy.lang.GroovyShell;
 import io.github.spencerpark.jupyter.kernel.BaseKernel;
 import io.github.spencerpark.jupyter.kernel.LanguageInfo;
 import io.github.spencerpark.jupyter.kernel.display.DisplayData;
+import org.apache.groovy.groovysh.Groovysh;
 
 public class GroovyKernel extends BaseKernel {
+
+    Groovysh shell;
+
+    public GroovyKernel() {
+        shell = new Groovysh();
+    }
     @Override
     public DisplayData eval(String expr) throws Exception {
-        return new DisplayData("Foo, Bar");
+        Object result = null;
+        for(String line : expr.split("\n")) {
+            result = shell.execute(line);
+        }
+        if(result != null)
+            return new DisplayData(result.toString());
+        return null;
     }
 
     @Override
